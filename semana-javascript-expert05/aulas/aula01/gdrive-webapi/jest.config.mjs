@@ -5,7 +5,7 @@
 export default {
   clearMocks: true,
   restoreMocks: true,
-  collectCoverage: true,
+  // collectCoverage: true,
   coverageDirectory: "coverage",
   coverageProvider: "v8",
   coverageReporters: [
@@ -13,7 +13,7 @@ export default {
     "lcov"
   ],
   testEnvironment: "node",
-  coverageThreshould: {
+  coverageThreshold: {
     global: {
       branches: 100,
       functions: 100,
@@ -21,7 +21,7 @@ export default {
       statements: 100
     }
   },
-  wacthPathIgnorePatterns: [
+  watchPathIgnorePatterns: [
     "node_modules"
   ],
   transformIgnorePatterns: [
