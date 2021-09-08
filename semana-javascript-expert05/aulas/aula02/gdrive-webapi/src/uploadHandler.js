@@ -1,3 +1,5 @@
+import Busboy from 'busboy'
+
 export class UploadHandler {
     constructor({ io, socketId }) {}
     
@@ -6,6 +8,10 @@ export class UploadHandler {
     }
 
     registerEvents(headers, onFinish) {
+        const busboy = new Busboy({ headers });
+        busboy.on('file', this.onFile.bind(this))
+        busboy.on('finish', onFinish);
         
+        return busboy
     }
 }

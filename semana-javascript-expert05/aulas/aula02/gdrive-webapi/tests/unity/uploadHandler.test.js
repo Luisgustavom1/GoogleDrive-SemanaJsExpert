@@ -5,6 +5,7 @@ import {
     jest
 } from '@jest/globals';
 import { UploadHandler } from "../../src/uploadHandler";
+import TestUtil from '../../util/testUtil';
 
 describe('#UploadHandler test suite', () => {
     const inObj = {
@@ -27,11 +28,16 @@ describe('#UploadHandler test suite', () => {
                 'content-type': 'multipart/form-data; boundary='
             };
 
-            const fn = jest.fn()
-            uploadHandler.registerEvents(headers, fn)
+            const onFinish = jest.fn()
+            const busboyInstance = uploadHandler.registerEvents(headers, onFinish)
+            
+            const fileStream = TestUtil.generateReadableStream(['chuck', 'of', 'data']);
+            busboyInstance.emit('file', 'fieldname', fileStream, 'filename.txt')
 
+            busboyInstance.listeners("finish")[0].call();
+            
             expect(uploadHandler.onFile).toHaveBeenCalled();
-            expect(fn).toHaveBeenCalled();
+            expect(onFinish).toHaveBeenCalled();
         })
     })
 })
