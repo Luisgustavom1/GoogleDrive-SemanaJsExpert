@@ -5,7 +5,7 @@ import {
     jest
 } from '@jest/globals';
 import fs from 'fs';
-import FileHelper from './fileHelper';
+import FileHelper from '../../src/fileHelper';
 
 describe('#File Helper test', () => {
 
@@ -53,7 +53,6 @@ describe('#File Helper test', () => {
                     file: 'file.png'
                 }
             ]
-            console.log(result)
             expect(fs.promises.stat).toHaveBeenCalledWith(`/tmp/${filename}`);
             expect(result).toMatchObject(expectedFormat);
         })

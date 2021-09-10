@@ -19,7 +19,7 @@ export default class TestUtil {
         return new Readable({
             objectMode: true,
             read() {
-                for(var item in data) {
+                for(const item of data) {
                     this.push(item);
                 };
 
@@ -31,10 +31,10 @@ export default class TestUtil {
     static generateWritableStream(onData) {
         return new Writable({
             objectMode: true,
-            write(chunck, enconding, cb) {
-                onData(chunck)
+            write(chunk, enconding, cb) {
+                onData(chunk)
 
-                cb(null, chunck)
+                cb(null, chunk)
             }
         })
     }
@@ -42,10 +42,10 @@ export default class TestUtil {
     static generateTransformStream(onData) {
         return new Transform({
             objectMode: true,
-            transform(chunck, enconding, cb) {
-                onData(chunck)
+            transform(chunk, enconding, cb) {
+                onData(chunk)
 
-                cb(null, chunck)
+                cb(null, chunk)
             }
         })
     }
