@@ -1,6 +1,16 @@
 export default class ViewManager {
     constructor() {
         this.tbody = document.querySelector('#tbody')
+        this.newFileBtn = document.querySelector('#newFileBtn')
+
+        this.formatter = new Intl.DateTimeFormat('pt', {
+            locale: 'pt-br',
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        })
     };
     
     getIcon(file) {
@@ -22,12 +32,13 @@ export default class ViewManager {
     };
 
     updatedCurrentFiles(files) {
+        console.log(files);
         const template = (item) => `
             <tr>
                 <td>${this.makeIcon(item.file)} ${item.file}</td>
-                <td>system_user</td>
-                <td>27 de agosto de 2021 14:10</td>
-                <td>65.6 GB</td>
+                <td>${item.owner}</td>
+                <td>${this.formatter.format(new Date(item.lastModified))}</td>
+                <td>${item.size}</td>
             </tr>
         `
 
